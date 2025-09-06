@@ -5,6 +5,7 @@ const defaultRound = 3;
 const submitBtn = document.getElementById("submitBtn");
 let internalCounter = 3;
 let count = 3;
+let playerIndex = 0;
 
 // Start game button
 const startGame = () => {
@@ -55,7 +56,6 @@ submitBtn.onclick = function() {
     playerContainer.className = "player-entry";
 
     const playerLabel = document.createElement("label");
-    let playerIndex = 0;
     playerLabel.id = playerIndex;
     playerIndex++;
     playerLabel.textContent = playerName;
