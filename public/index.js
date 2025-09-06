@@ -58,13 +58,14 @@ submitBtn.onclick = function() {
 
     const playerLabel = document.createElement("label");
     if (playerIndex == 0) {
-        playerLabel.id = playerIndex;
+//        playerLabel.id = playerIndex;
         playerLabel.textContent = dealerTag + playerName;
     } else {
-        playerLabel.id = playerIndex;
+//        playerLabel.id = playerIndex;
         playerLabel.textContent = playerName;
     }
 
+    playerLabel.id = playerIndex;
     playerIndex++;
 
     const mathTextbox = document.createElement("input");
