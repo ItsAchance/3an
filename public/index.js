@@ -6,6 +6,7 @@ const submitBtn = document.getElementById("submitBtn");
 let internalCounter = 3;
 let count = 3;
 let playerIndex = 0;
+const dealerTag = '* ';
 
 // Start game button
 const startGame = () => {
@@ -56,9 +57,15 @@ submitBtn.onclick = function() {
     playerContainer.className = "player-entry";
 
     const playerLabel = document.createElement("label");
-    playerLabel.id = playerIndex;
+    if (playerIndex == 0) {
+        playerLabel.id = playerIndex;
+        playerLabel.textContent = dealerTag + playerName;
+    } else {
+        playerLabel.id = playerIndex;
+        playerLabel.textContent = playerName;
+    }
+
     playerIndex++;
-    playerLabel.textContent = playerName;
 
     const mathTextbox = document.createElement("input");
     mathTextbox.type = "text";
