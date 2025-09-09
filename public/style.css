@@ -11,10 +11,14 @@ body {
     text-align: center;
 }
 
-#countLabel {
+.countLabel {
     display: block;
     text-align: center;
     font-size: 2em;
+}
+
+.countLabelHidden {
+    display: none;
 }
 
 .buttons {
