@@ -131,3 +131,14 @@ button {
     align-items: center;
 }
 
+.alreadySubmitted {
+    padding: 10px 20px;
+    font-size: 1, 5em;
+    border-radius: 7px;
+    cursor: pointer;
+    background-color: darkolivegreen;
+    color: #E3D095;
+    transition: background-color 0.25s;
+    border: none;
+    margin: 7px;
+}
