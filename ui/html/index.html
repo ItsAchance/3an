@@ -16,18 +16,20 @@
             <button type="button" value="Get highscore" class="buttons" id="highScoreBtn">Get highscores</button>
         </div>
     </form>
-    <label id="playerName">Enter player name: </label>
-    <div id="playerDiv">
-        <form method="post" action="/" id="player-form">
-            <input type="text" placeholder="Username" id="playerTextbox" class="textBox" name="playerInput">
-            <button class='buttons' type="button" id="submitBtn">Add Player</button><br><br>
-            <div id="start-game-container">
-                <input type="button" name="start-game" value="Start game" class="buttons" id="start-btn">
-            </div>
-            <ul id="playerList">
-                <p id="playerOne"></p>
-            </ul>
-        </form>
+    <div id="preGameDisplay">
+        <label id="playerName">Enter player name: </label>
+        <div id="playerDiv">
+            <form method="post" action="/" id="player-form">
+                <input type="text" placeholder="Username" id="playerTextbox" class="textBox" name="playerInput">
+                <button class='buttons' type="button" id="submitBtn">Add Player</button><br><br>
+                <div id="start-game-container">
+                    <input type="button" name="start-game" value="Start game" class="buttons" id="start-btn">
+                </div>
+                <ul id="playerList">
+                    <p id="playerOne"></p>
+                </ul>
+            </form>
+        </div>
     </div>
     <div id="btnContainer">
         <button type="button" id="resetBtn" class="buttons">New Game</button>
