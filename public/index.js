@@ -16,9 +16,6 @@ const startGame = () => {
     const startGameBtn = document.querySelector('#start-btn');
     startGameBtn.addEventListener('click', () => {
         countLabel.textContent = `Current round: ${count}`;
-        // let btnContainer = document.querySelector('#btnContainer');
-        // document.querySelector('#countLabel').insertBefore(document.querySelector(btnContainer));
-        //document.querySelector('#start-game-container').after(countLabel);
         startGameBtn.classList.toggle('hidden');
         document.getElementById('preGameDisplay').classList.toggle('hidden')
         document.querySelector('#countLabel').classList.toggle('countLabelHidden');
@@ -45,6 +42,23 @@ increaseBtn.onclick = function() {
     if (currentDealerIndex > activePlayerListLength) {
         currentDealerIndex = 0;
     }
+
+    // Check for out of index
+    if (currentDealerIndex > possibleDealerIndex) {
+        currentDealerIndex = 0;
+    }
+
+    // Switch the dealer tag to the next player and remove it from the "old" dealer
+    for (let i = 0; i < activePlayerListLength; i++) {
+        let dealerIndex = document.getElementById(i);
+        if (dealerIndex) {
+            dealerIndex.textContent = dealerIndex.textContent.replace(/\* /g, '');
+        }
+    }
+    document.getElementById(currentDealerIndex).textContent = dealerTag + document.getElementById(currentDealerIndex).textContent;
+
+    // Make the buttons the normal color again
+    document.querySelector(`#submitMathBtn${playerIndex - 1}`);
 };
 
 resetBtn.onclick = function() {
@@ -80,12 +94,7 @@ submitBtn.onclick = function() {
     playerContainer.className = "player-entry";
 
     const playerLabel = document.createElement("label");
-    if (playerIndex == 0) {
-        playerLabel.textContent = dealerTag + playerName;
-    } else {
-        playerLabel.textContent = playerName;
-    }
-
+    playerLabel.textContent = playerName;
     playerLabel.id = playerIndex;
     playerIndex++;
 
@@ -102,6 +111,9 @@ submitBtn.onclick = function() {
     const submitMathBtn = document.createElement("button");
     submitMathBtn.textContent = "Submit";
     submitMathBtn.className = 'buttons';
+    // submitMathBtn.className = 'submitMathBtns';
+    // submitMathBtn.id = `submitMathBtn${playerIndex - 1}`;
+
     submitMathBtn.onclick = function() {
         const mathExpression = mathTextbox.value.trim();
         const currentScore = parseInt(scoreLabel.textContent.split(": ")[1]);
@@ -154,10 +166,8 @@ const saveGame = () => {
             gameStats[`playerNumber${i}`] = {
                 'name': data[i].split('\n')[0],
                 'score': cleanScore
-                //'score': data[i].split('\n')[2]
             };
         }
-        //console.log(gameStats);
         fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -191,16 +201,27 @@ const getHighScore = () => {
     });
 };
 
-// Dealer function
 const whoIsDealer = () => {
-    console.log(`Active player list: ${activePlayerListLength}`);
-    console.log(`Dealer index: ${possibleDealerIndex}`);
-    console.log(`Current dealer index: ${currentDealerIndex}`);
-    let dealerName = document.getElementById(currentDealerIndex).textContent;
-    console.log(`This is the current dealer name: ${dealerName}`);
+
+    // Starting dealer tag position
+    document.getElementById(currentDealerIndex).textContent = '* ' + document.getElementById(currentDealerIndex).textContent;
 };
+
+const greenButton = () => {
+    //let buttonToGreen = document.querySelector(`#submitMathBtn${playerIndex - 1}`);    
+
+    // How to find the button to turn green
+    document.querySelector('.player-entry').childNodes[2].classList.toggle('alreadySubmitted');
+    // And the next one
+    document.querySelector('.player-entry').nextElementSibling.childNodes[2].classList.toggle('alreadySubmitted');
+    //
+    for (let btn = 0; btn < activePlayerListLength; btn++) {
+        console.log(`Submit button number: ${btn}`);
+    }
+}
 
 startGame();
 saveGame();
 getHighScore();
+greenButton();
 
