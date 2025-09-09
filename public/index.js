@@ -7,6 +7,9 @@ let internalCounter = 3;
 let count = 3;
 let playerIndex = 0;
 const dealerTag = '* ';
+let activePlayerListLength;
+let possibleDealerIndex;
+let currentDealerIndex = 0;
 
 // Start game button
 const startGame = () => {
@@ -20,9 +23,12 @@ const startGame = () => {
         document.getElementById('preGameDisplay').classList.toggle('hidden')
         document.querySelector('#countLabel').classList.toggle('countLabelHidden');
         document.querySelector('#countLabel').classList.add('countLabel');
+        activePlayerList = document.getElementById("activePlayerList");
+        activePlayerListLength = activePlayerList.childElementCount;
+        possibleDealerIndex = activePlayerListLength -1;
         whoIsDealer();
     });
-}
+};
 
 increaseBtn.onclick = function() {
     if (internalCounter < 14) {
@@ -35,6 +41,7 @@ increaseBtn.onclick = function() {
         internalCounter++;
         countLabel.textContent = "Current round: " + count;
     }
+    currentDealerIndex +=1;
 }
 
 resetBtn.onclick = function() {
@@ -154,7 +161,7 @@ const saveGame = () => {
             body: JSON.stringify({ gameStats })
         });
     });
-}
+};
 
 // Get highscore button
 const getHighScore = () => {
@@ -183,9 +190,12 @@ const getHighScore = () => {
 
 // Dealer function
 const whoIsDealer = () => {
-    let activePlayerListLength = activePlayerList.childElementCount;
-    console.log(activePlayerListLength);
-}
+    console.log(`Active player list: ${Math.max(activePlayerListLength)}`);
+    console.log(`Dealer index: ${possibleDealerIndex}`);
+    console.log(`Current dealer index: ${currentDealerIndex}`);
+    let dealerName = document.getElementById(currentDealerIndex).textContent;
+    console.log(`This is the current dealer name: ${dealerName}`);
+};
 
 startGame();
 saveGame();
