@@ -17,6 +17,7 @@ const startGame = () => {
         countLabel.textContent = `Current round: ${count}`;
         document.querySelector('#start-game-container').after(countLabel);
         startGameBtn.classList.toggle('hidden');
+        document.getElementById('preGameDisplay').classList.toggle('hidden')
     });
 }
 
@@ -42,6 +43,12 @@ resetBtn.onclick = function() {
     // Clear all player containers
     const activePlayerList = document.getElementById("activePlayerList");
     activePlayerList.innerHTML = ""; // Removes all child elements
+
+    // Kind of reset to start state
+    document.querySelector('#preGameDisplay').classList.toggle('hidden');
+    document.querySelector('#start-btn').classList.toggle('hidden');
+    document.querySelector('#countLabel').remove();
+
 };
 
 // Add player button functionality
@@ -58,10 +65,10 @@ submitBtn.onclick = function() {
 
     const playerLabel = document.createElement("label");
     if (playerIndex == 0) {
-//        playerLabel.id = playerIndex;
+        //        playerLabel.id = playerIndex;
         playerLabel.textContent = dealerTag + playerName;
     } else {
-//        playerLabel.id = playerIndex;
+        //        playerLabel.id = playerIndex;
         playerLabel.textContent = playerName;
     }
 
@@ -169,6 +176,13 @@ const getHighScore = () => {
         }
     });
 };
+
+// Dealer function
+const whoIsDealer = () => {
+    let activePlayerListLength = activePlayerList.childElementCount
+    activePlayerListLength = activePlayerListLength - 1
+}
+
 startGame();
 saveGame();
 getHighScore();
