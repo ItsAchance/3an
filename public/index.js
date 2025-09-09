@@ -12,15 +12,14 @@ const dealerTag = '* ';
 const startGame = () => {
     const startGameBtn = document.querySelector('#start-btn');
     startGameBtn.addEventListener('click', () => {
-//        const countLabel = document.createElement('label');
-//        countLabel.id = 'countLabel';
         countLabel.textContent = `Current round: ${count}`;
         // let btnContainer = document.querySelector('#btnContainer');
         // document.querySelector('#countLabel').insertBefore(document.querySelector(btnContainer));
         //document.querySelector('#start-game-container').after(countLabel);
         startGameBtn.classList.toggle('hidden');
         document.getElementById('preGameDisplay').classList.toggle('hidden')
-        document.querySelector('#countLabel').classList.toggle('hidden');
+        document.querySelector('#countLabel').classList.toggle('countLabelHidden');
+        document.querySelector('#countLabel').classList.add('countLabel');
         whoIsDealer();
     });
 }
@@ -51,7 +50,10 @@ resetBtn.onclick = function() {
     // Kind of reset to start state
     document.querySelector('#preGameDisplay').classList.toggle('hidden');
     document.querySelector('#start-btn').classList.toggle('hidden');
-    document.querySelector('#countLabel').classList.toggle('hidden');
+
+    document.querySelector('#countLabel').classList.toggle('countLabel');
+    document.querySelector('#countLabel').classList.add('countLabelHidden');
+    playerIndex = 0;
 
 };
 
