@@ -25,7 +25,7 @@ const startGame = () => {
         document.querySelector('#countLabel').classList.add('countLabel');
         activePlayerList = document.getElementById("activePlayerList");
         activePlayerListLength = activePlayerList.childElementCount;
-        possibleDealerIndex = activePlayerListLength -1;
+        possibleDealerIndex = activePlayerListLength - 1;
         whoIsDealer();
     });
 };
@@ -41,8 +41,11 @@ increaseBtn.onclick = function() {
         internalCounter++;
         countLabel.textContent = "Current round: " + count;
     }
-    currentDealerIndex +=1;
-}
+    currentDealerIndex += 1;
+    if (currentDealerIndex > activePlayerListLength) {
+        currentDealerIndex = 0;
+    }
+};
 
 resetBtn.onclick = function() {
     // Reset the round counter
@@ -190,7 +193,7 @@ const getHighScore = () => {
 
 // Dealer function
 const whoIsDealer = () => {
-    console.log(`Active player list: ${Math.max(activePlayerListLength)}`);
+    console.log(`Active player list: ${activePlayerListLength}`);
     console.log(`Dealer index: ${possibleDealerIndex}`);
     console.log(`Current dealer index: ${currentDealerIndex}`);
     let dealerName = document.getElementById(currentDealerIndex).textContent;
