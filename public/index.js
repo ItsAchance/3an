@@ -24,6 +24,7 @@ const startGame = () => {
         activePlayerListLength = activePlayerList.childElementCount;
         possibleDealerIndex = activePlayerListLength - 1;
         whoIsDealer();
+        greenButton();
     });
 };
 
@@ -111,7 +112,7 @@ submitBtn.onclick = function() {
     const submitMathBtn = document.createElement("button");
     submitMathBtn.textContent = "Submit";
     submitMathBtn.className = 'buttons';
-    // submitMathBtn.className = 'submitMathBtns';
+    submitMathBtn.classList.add('submitMathBtns');
     // submitMathBtn.id = `submitMathBtn${playerIndex - 1}`;
 
     submitMathBtn.onclick = function() {
@@ -223,5 +224,4 @@ const greenButton = () => {
 startGame();
 saveGame();
 getHighScore();
-greenButton();
 
