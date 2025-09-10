@@ -23,7 +23,7 @@ app.post('/', async (req, res) => {
 
     try {
         for (const entry of playerEntries) {
-            const insertName = entry.name;
+            const insertName = entry.name.replace(/^\*\s?/, '');
             const insertScore = entry.score;
             const currentDate = new Date();
 
