@@ -59,7 +59,11 @@ increaseBtn.onclick = function() {
     document.getElementById(currentDealerIndex).textContent = dealerTag + document.getElementById(currentDealerIndex).textContent;
 
     // Make the buttons the normal color again
-    document.querySelector(`#submitMathBtn${playerIndex - 1}`);
+    let submitMathBtns = document.querySelectorAll('.submitMathBtns');
+    submitMathBtns.forEach(function(btn) {
+        btn.classList.remove('alreadySubmitted');
+        btn.classList.add('buttons');
+    });
 };
 
 resetBtn.onclick = function() {
@@ -209,17 +213,14 @@ const whoIsDealer = () => {
 };
 
 const greenButton = () => {
-    //let buttonToGreen = document.querySelector(`#submitMathBtn${playerIndex - 1}`);    
-
-    // How to find the button to turn green
-    document.querySelector('.player-entry').childNodes[2].classList.toggle('alreadySubmitted');
-    // And the next one
-    document.querySelector('.player-entry').nextElementSibling.childNodes[2].classList.toggle('alreadySubmitted');
-    //
-    for (let btn = 0; btn < activePlayerListLength; btn++) {
-        console.log(`Submit button number: ${btn}`);
-    }
-}
+    let submitMathBtns = document.querySelectorAll('.submitMathBtns');
+    submitMathBtns.forEach(function(btn) {
+        btn.addEventListener('click', () => {
+            btn.classList.remove('buttons');
+            btn.classList.add('alreadySubmitted');
+        })
+    });
+};
 
 startGame();
 saveGame();
