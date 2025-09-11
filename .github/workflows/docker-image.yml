@@ -1,3 +1,4 @@
+
 name: Docker Image CI
 
 on:
@@ -5,11 +6,9 @@ on:
     branches: [ "main" ]
     
 jobs:
-
   build:
-
     runs-on: self-hosted
-      container:
+    container:
       image: alpine:3.22
 
     steps:
