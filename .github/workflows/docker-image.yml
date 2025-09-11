@@ -13,5 +13,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Install required software
+      run: | 
+        apk update
+        apk add --update docker openrc
+        rc-update add docker boot
+
+    - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag 3an:$(date +%s)
