@@ -2,7 +2,8 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    tags:
+      - 'v*.*.*'
     
 jobs:
   github-build-push:
@@ -27,8 +28,13 @@ jobs:
 
     - name: Build and tag the Docker image
       run: |
-        docker build . --file Dockerfile --tag ghcr.io/itsachance/3an:latest
+        VERSION=${GITHUB_REF#refs/tags/}
+        docker build . --file Dockerfile \
+          --tag ghcr.io/itsachance/3an:${VERSION} \
+          --tag ghcr.io/itsachance/3an:latest
         
     - name: Push the Docker image
       run: |
+        VERSION=${GITHUB_REF#refs/tags/}
+        docker push ghcr.io/itsachance/3an:${VERSION}
         docker push ghcr.io/itsachance/3an:latest
