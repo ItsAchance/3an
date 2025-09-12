@@ -12,12 +12,6 @@ jobs:
       image: alpine:3.22
     steps:
 
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v3
-      with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.CONTAINER_PUSH_SECRET }}
 
     - uses: actions/checkout@v4
     - name: Install docker
@@ -25,6 +19,13 @@ jobs:
         apk update
         apk add --update docker openrc
         rc-update add docker boot
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.CONTAINER_PUSH_SECRET }}
 
     - name: Build and tag the Docker image
       run: |
