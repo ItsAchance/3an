@@ -26,7 +26,12 @@ jobs:
         apk add --update docker openrc
         rc-update add docker boot
 
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag 3an:$(date +%s)
-
+    - name: Build and tag the Docker image
+      run: |
+        docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/3an:latest
+        docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/3an:$(date +%s)
+        
+    - name: Push the Docker image
+      run: |
+        docker push ghcr.io/${{ github.repository_owner }}/3an:latest
+        docker push ghcr.io/${{ github.repository_owner }}/3an:$(date +%s)
