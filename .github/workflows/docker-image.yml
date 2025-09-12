@@ -1,4 +1,3 @@
-
 name: Docker Image CI
 
 on:
@@ -11,7 +10,6 @@ jobs:
     container:
       image: alpine:3.22
     steps:
-
 
     - uses: actions/checkout@v4
     - name: Install docker
