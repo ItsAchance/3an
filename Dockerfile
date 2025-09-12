@@ -7,3 +7,4 @@ RUN npm ci
 COPY --chown=node:node . .
 EXPOSE 5500
 CMD [ "node", "app.js" ]
+LABEL org.opencontainers.image.source https://github.com/ItsAchance/3an
