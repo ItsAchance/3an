@@ -1,15 +1,29 @@
 const increaseBtn = document.getElementById("increaseBtn");
 const decreaseBtn = document.getElementById("decreaseBtn");
 const resetBtn = document.getElementById("resetBtn");
-const defaultRound = 3;
 const submitBtn = document.getElementById("submitBtn");
+
+// Game starts at round 3, hence the name
+const defaultRound = 3;
+
+// Count actual game rounds, i.e more than 14
 let internalCounter = 3;
+
+// Round to be displayed
 let count = 3;
+
 let playerIndex = 0;
 const dealerTag = '* ';
 let activePlayerListLength;
 let possibleDealerIndex;
 let currentDealerIndex = 0;
+
+// Game state management
+let gameDataToSave = {
+    players: [],
+    currentRound: internalCounter,
+    rounds: []
+};
 
 // Start game button
 const startGame = () => {
@@ -67,12 +81,6 @@ increaseBtn.onclick = function() {
         btn.classList.add('buttons');
     });
 
-    // Object to store player name and score while game is active
-    let gameDataToSave = {
-        players: [],
-        currentRound: internalCounter,
-        rounds: []
-    };
 };
 
 // Save game data to localStorage
@@ -172,6 +180,7 @@ submitBtn.onclick = function() {
 
     // Clear the player textbox
     document.getElementById("playerTextbox").value = "";
+
     saveToStorage();
 };
 
@@ -227,11 +236,13 @@ const getHighScore = () => {
     });
 };
 
+
+// Inital dealer tag position
 const whoIsDealer = () => {
-    // Starting dealer tag position
     document.getElementById(currentDealerIndex).textContent = '* ' + document.getElementById(currentDealerIndex).textContent;
 };
 
+// Make playerbox submit buttons green when clicked
 const greenButton = () => {
     let submitMathBtns = document.querySelectorAll('.submitMathBtns');
     submitMathBtns.forEach(function(btn) {
