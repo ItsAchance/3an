@@ -253,20 +253,6 @@ const greenButton = () => {
     });
 };
 
-function onPageLoad() {
-    const gameData = localStorage.getItem('gameData');
-    if (gameData) {
-        data.innerText = JSON.parse(gameData).gameState;
-    };
-};
-
-onPageLoad();
-
-function clearData() {
-    localStorage.removeItem('gameData');
-    data.innerText = 0;
-};
-
 startGame();
 saveGame();
 getHighScore();
