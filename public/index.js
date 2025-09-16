@@ -28,6 +28,7 @@ const startGame = () => {
     });
 };
 
+// Next round button
 increaseBtn.onclick = function() {
     if (internalCounter < 14) {
         internalCounter++;
@@ -84,6 +85,7 @@ function saveToStorage() {
     }
 }
 
+// New game button
 resetBtn.onclick = function() {
     // Reset the round counter
     count = defaultRound;
@@ -170,6 +172,7 @@ submitBtn.onclick = function() {
 
     // Clear the player textbox
     document.getElementById("playerTextbox").value = "";
+    saveToStorage();
 };
 
 // Save game button which will send player-stats to the backend
