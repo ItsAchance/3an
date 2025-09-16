@@ -56,6 +56,7 @@ increaseBtn.onclick = function() {
             dealerIndex.textContent = dealerIndex.textContent.replace(/\* /g, '');
         }
     }
+    // ???
     document.getElementById(currentDealerIndex).textContent = dealerTag + document.getElementById(currentDealerIndex).textContent;
 
     // Make the buttons the normal color again
@@ -64,7 +65,24 @@ increaseBtn.onclick = function() {
         btn.classList.remove('alreadySubmitted');
         btn.classList.add('buttons');
     });
+
+    // Object to store player name and score while game is active
+    let gameDataToSave = {
+        players: [],
+        currentRound: internalCounter,
+        rounds: []
+    };
 };
+
+// Save game data to localStorage
+function saveToStorage() {
+    try {
+        localStorage.setItem('scoringGameData', JSON.stringify(gameData));
+        console.log('Game saved to localStorage');
+    } catch (error) {
+        console.log('localStorage not available - data stored in memory only');
+    }
+}
 
 resetBtn.onclick = function() {
     // Reset the round counter
@@ -207,7 +225,6 @@ const getHighScore = () => {
 };
 
 const whoIsDealer = () => {
-
     // Starting dealer tag position
     document.getElementById(currentDealerIndex).textContent = '* ' + document.getElementById(currentDealerIndex).textContent;
 };
@@ -220,6 +237,20 @@ const greenButton = () => {
             btn.classList.add('alreadySubmitted');
         })
     });
+};
+
+function onPageLoad() {
+    const gameData = localStorage.getItem('gameData');
+    if (gameData) {
+        data.innerText = JSON.parse(gameData).gameState;
+    };
+};
+
+onPageLoad();
+
+function clearData() {
+    localStorage.removeItem('gameData');
+    data.innerText = 0;
 };
 
 startGame();
