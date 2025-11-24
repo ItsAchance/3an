@@ -1,15 +1,29 @@
 const increaseBtn = document.getElementById("increaseBtn");
 const decreaseBtn = document.getElementById("decreaseBtn");
 const resetBtn = document.getElementById("resetBtn");
-const defaultRound = 3;
 const submitBtn = document.getElementById("submitBtn");
+
+// Game starts at round 3, hence the name
+const defaultRound = 3;
+
+// Count actual game rounds, i.e more than 14
 let internalCounter = 3;
+
+// Round to be displayed
 let count = 3;
+
 let playerIndex = 0;
 const dealerTag = '* ';
 let activePlayerListLength;
 let possibleDealerIndex;
 let currentDealerIndex = 0;
+
+// Game state management
+let gameDataToSave = {
+    players: [],
+    currentRound: internalCounter,
+    rounds: []
+};
 
 // Start game button
 const startGame = () => {
@@ -28,6 +42,7 @@ const startGame = () => {
     });
 };
 
+// Next round button
 increaseBtn.onclick = function() {
     if (internalCounter < 14) {
         internalCounter++;
@@ -56,6 +71,7 @@ increaseBtn.onclick = function() {
             dealerIndex.textContent = dealerIndex.textContent.replace(/\* /g, '');
         }
     }
+    // ???
     document.getElementById(currentDealerIndex).textContent = dealerTag + document.getElementById(currentDealerIndex).textContent;
 
     // Make the buttons the normal color again
@@ -64,8 +80,21 @@ increaseBtn.onclick = function() {
         btn.classList.remove('alreadySubmitted');
         btn.classList.add('buttons');
     });
+    saveGameState();
+
 };
 
+// Save game data to localStorage
+function saveToStorage() {
+    try {
+        localStorage.setItem('scoringGameData', JSON.stringify(gameData));
+        console.log('Game saved to localStorage');
+    } catch (error) {
+        console.log('localStorage not available - data stored in memory only');
+    }
+}
+
+// New game button
 resetBtn.onclick = function() {
     // Reset the round counter
     count = defaultRound;
@@ -83,6 +112,7 @@ resetBtn.onclick = function() {
     document.querySelector('#countLabel').classList.toggle('countLabel');
     document.querySelector('#countLabel').classList.add('countLabelHidden');
     playerIndex = 0;
+    localStorage.removeItem('gameState');
 
 };
 
@@ -106,7 +136,7 @@ submitBtn.onclick = function() {
     const mathTextbox = document.createElement("input");
     mathTextbox.type = "text";
     mathTextbox.placeholder = "Enter score";
-    mathTextbox.className = "math-input";
+    // mathTextbox.className = "math-input";
     mathTextbox.className = "textBox";
 
     const scoreLabel = document.createElement("span");
@@ -152,6 +182,9 @@ submitBtn.onclick = function() {
 
     // Clear the player textbox
     document.getElementById("playerTextbox").value = "";
+
+    saveGameState();
+    // saveToStorage();
 };
 
 // Save game button which will send player-stats to the backend
@@ -206,12 +239,13 @@ const getHighScore = () => {
     });
 };
 
-const whoIsDealer = () => {
 
-    // Starting dealer tag position
+// Inital dealer tag position
+const whoIsDealer = () => {
     document.getElementById(currentDealerIndex).textContent = '* ' + document.getElementById(currentDealerIndex).textContent;
 };
 
+// Make playerbox submit buttons green when clicked
 const greenButton = () => {
     let submitMathBtns = document.querySelectorAll('.submitMathBtns');
     submitMathBtns.forEach(function(btn) {
@@ -226,3 +260,8 @@ startGame();
 saveGame();
 getHighScore();
 
+setTimeout(() => {
+    if (typeof loadGameState === 'function') {
+        loadGameState();
+    }
+}, 100);
