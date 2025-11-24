@@ -136,7 +136,7 @@ submitBtn.onclick = function() {
     const mathTextbox = document.createElement("input");
     mathTextbox.type = "text";
     mathTextbox.placeholder = "Enter score";
-    mathTextbox.className = "math-input";
+    // mathTextbox.className = "math-input";
     mathTextbox.className = "textBox";
 
     const scoreLabel = document.createElement("span");
@@ -184,7 +184,7 @@ submitBtn.onclick = function() {
     document.getElementById("playerTextbox").value = "";
 
     saveGameState();
-    saveToStorage();
+    // saveToStorage();
 };
 
 // Save game button which will send player-stats to the backend
@@ -259,4 +259,9 @@ const greenButton = () => {
 startGame();
 saveGame();
 getHighScore();
-loadGameState();
+
+setTimeout(() => {
+    if (typeof loadGameState === 'function') {
+        loadGameState();
+    }
+}, 100);
