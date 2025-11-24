@@ -26,10 +26,11 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.CONTAINER_PUSH_SECRET }}
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+    - name: Install Node.js and TypeScript
+      run: | 
+        apk update
+        apk add --no-cache nodejs npm
+        npm install -g typescript
 
     - name: Compile TS
       run: |
