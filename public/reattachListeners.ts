@@ -1,3 +1,5 @@
+declare function greenButton(): void;
+
 function reattachListeners(): void {
     const submitMathBtns: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.submitMathBtns');
     console.log('Found buttons:', submitMathBtns.length);
@@ -43,6 +45,7 @@ function reattachListeners(): void {
         console.log('Successfully attached listener to button', index);
 
     });
+    greenButton();
 }
 // Make function available globally
 (window as any).reattachListeners = reattachListeners;
