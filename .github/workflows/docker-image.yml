@@ -26,8 +26,16 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.CONTAINER_PUSH_SECRET }}
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
     - name: Compile TS
-      run: tsc ./public/*.ts
+      run: |
+        npm install -g typescript
+        tsc public/reattachListeners.ts
+        tsc public/persistence.ts
 
     - name: Build and tag the Docker image
       run: |
