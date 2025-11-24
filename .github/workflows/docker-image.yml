@@ -34,7 +34,6 @@ jobs:
 
     - name: Compile TS
       run: |
-        npm install -g typescript
         tsc public/reattachListeners.ts
         tsc public/persistence.ts
 
