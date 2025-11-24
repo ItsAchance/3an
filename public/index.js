@@ -80,6 +80,7 @@ increaseBtn.onclick = function() {
         btn.classList.remove('alreadySubmitted');
         btn.classList.add('buttons');
     });
+    saveGameState();
 
 };
 
@@ -111,6 +112,7 @@ resetBtn.onclick = function() {
     document.querySelector('#countLabel').classList.toggle('countLabel');
     document.querySelector('#countLabel').classList.add('countLabelHidden');
     playerIndex = 0;
+    localStorage.removeItem('gameState');
 
 };
 
@@ -181,6 +183,7 @@ submitBtn.onclick = function() {
     // Clear the player textbox
     document.getElementById("playerTextbox").value = "";
 
+    saveGameState();
     saveToStorage();
 };
 
@@ -256,4 +259,4 @@ const greenButton = () => {
 startGame();
 saveGame();
 getHighScore();
-
+loadGameState();
