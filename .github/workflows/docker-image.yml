@@ -26,6 +26,9 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.CONTAINER_PUSH_SECRET }}
 
+    - name: Compile TS
+      run: tsc ./public/*.ts
+
     - name: Build and tag the Docker image
       run: |
         VERSION=${GITHUB_REF#refs/tags/}
