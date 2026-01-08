@@ -96,24 +96,29 @@ function saveToStorage() {
 
 // New game button
 resetBtn.onclick = function() {
-    // Reset the round counter
-    count = defaultRound;
-    internalCounter = 3;
-    countLabel.textContent = "Current round: " + count;
+    if (window.confirm("Are you sure you want to start a new game?")) {
+        // Reset the round counter
+        count = defaultRound;
+        internalCounter = 3;
+        countLabel.textContent = "Current round: " + count;
 
-    // Clear all player containers
-    const activePlayerList = document.getElementById("activePlayerList");
-    activePlayerList.innerHTML = ""; // Removes all child elements
+        // Clear all player containers
+        const activePlayerList = document.getElementById("activePlayerList");
+        activePlayerList.innerHTML = ""; // Removes all child elements
 
-    // Kind of reset to start state
-    document.querySelector('#preGameDisplay').classList.toggle('hidden');
-    document.querySelector('#start-btn').classList.toggle('hidden');
+        // Kind of reset to start state
+        document.querySelector('#preGameDisplay').classList.toggle('hidden');
+        document.querySelector('#start-btn').classList.toggle('hidden');
 
-    document.querySelector('#countLabel').classList.toggle('countLabel');
-    document.querySelector('#countLabel').classList.add('countLabelHidden');
-    playerIndex = 0;
-    localStorage.removeItem('gameState');
+        document.querySelector('#countLabel').classList.toggle('countLabel');
+        document.querySelector('#countLabel').classList.add('countLabelHidden');
+        playerIndex = 0;
+        localStorage.removeItem('gameState');
 
+    }
+    else {
+        alert("Resuming game")
+    }
 };
 
 // Add player button functionality
